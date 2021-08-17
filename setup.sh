@@ -21,3 +21,4 @@ setupDeno
 
 deno run --allow-run setupDevelopmentTools.ts
 deno run --allow-run setupGit.ts
+deno run --allow-run setupGithubCli.ts
