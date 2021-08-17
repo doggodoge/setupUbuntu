@@ -1,5 +1,9 @@
 import * as Colors from "https://deno.land/std@0.104.0/fmt/colors.ts";
 
+/**
+ * Clones a git repo into the current directory.
+ * @param repo Git repo to clone.
+ */
 async function clone(repo: string) {
   console.log(
     Colors.green("Cloning repo"),
