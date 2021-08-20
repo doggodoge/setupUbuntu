@@ -1,24 +1,28 @@
 #!/usr/bin/env bash
 
+function checkSudo {
+    which sudo || {
+        apt update
+        apt install sudo
+    }
+}
+
 function updatePackages {
     sudo apt update
     sudo apt upgrade -y
 }
 
-function setupRust {
-    curl https://sh.rustup.rs -sSf | sh -s -- -y
-    source $HOME/.cargo/env
-}
-
 function setupDeno {
-    sudo apt install build-essential libssl-dev pkg-config -y
-    cargo install deno --locked
+    sudo apt install curl unzip -y
+    curl -fsSL https://deno.land/x/install/install.sh | sh
 }
 
+checkSudo
 updatePackages
-setupRust
 setupDeno
 
-deno run --allow-run setupDevelopmentTools.ts
-deno run --allow-run setupGit.ts
-deno run --allow-run setupGithubCli.ts
+DENO_APP=$HOME/.deno/bin/deno
+
+$DENO_APP run --allow-run setupDevelopmentTools.ts
+$DENO_APP run --allow-run setupGit.ts
+$DENO_APP run --allow-run --allow-write setupGithubCli.ts
